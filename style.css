@@ -1,0 +1,109 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #f8e9f3, #eee7ff);
+  color: #292333;
+  min-height: 100vh;
+}
+
+header {
+  background: white;
+  padding: 25px 20px;
+  text-align: center;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+}
+
+header h1 {
+  color: #8e5aa8;
+  font-size: 32px;
+}
+
+header p {
+  margin-top: 8px;
+  color: #777;
+}
+
+main {
+  max-width: 700px;
+  margin: 30px auto;
+  padding: 20px;
+}
+
+.card {
+  background: white;
+  border-radius: 25px;
+  padding: 25px;
+  box-shadow: 0 8px 30px rgba(120, 80, 150, 0.15);
+}
+
+h2 {
+  color: #8e5aa8;
+  margin-bottom: 15px;
+}
+
+textarea {
+  width: 100%;
+  min-height: 130px;
+  padding: 15px;
+  border: 2px solid #ead8f0;
+  border-radius: 15px;
+  resize: vertical;
+  font-size: 16px;
+  outline: none;
+}
+
+textarea:focus {
+  border-color: #b47bc7;
+}
+
+button {
+  width: 100%;
+  margin-top: 15px;
+  padding: 15px;
+  border: none;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #9b63b5, #c58ad8);
+  color: white;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+#resposta {
+  margin-top: 20px;
+  padding: 18px;
+  background: #faf5fc;
+  border-radius: 15px;
+  min-height: 60px;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #888;
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 27px;
+  }
+
+  main {
+    margin: 15px auto;
+    padding: 15px;
+  }
+
+  .card {
+    padding: 20px;
+  }
+}
