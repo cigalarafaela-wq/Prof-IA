@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prof IA | Sua professora virtual</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <div class="logo">✦ Prof <span>IA</span></div>
+    <div class="status">● IA online</div>
+</header>
+<main>
+    <section id="inicio" class="tela ativa">
+        <div class="hero">
+            <div class="robo">🤖</div>
+            <h1>Olá! Eu sou a <span>Prof IA</span></h1>
+            <p>
+                Sua professora virtual para estudar,
+                entender e praticar qualquer matéria.
+            </p>
+            <button onclick="mostrarEstudo()">
+                Começar a estudar →
+            </button>
+        </div>
+        <div class="cards">
+            <div class="card">
+                <span>📚</span>
+                <h3>Aprenda</h3>
+                <p>Explicações simples e fáceis de entender.</p>
+            </div>
+            <div class="card">
+                <span>🧠</span>
+                <h3>Pratique</h3>
+                <p>Faça exercícios para testar seu conhecimento.</p>
+            </div>
+            <div class="card">
+                <span>💡</span>
+                <h3>Descubra</h3>
+                <p>Peça dicas quando estiver com dificuldade.</p>
+            </div>
+        </div>
+    </section>
+    <section id="estudo" class="tela">
+        <div class="topo-estudo">
+            <button class="voltar" onclick="voltarInicio()">← Voltar</button>
+            <div>
+                <h2>Vamos estudar! 📚</h2>
+                <p>Escolha uma matéria para começar.</p>
+            </div>
+        </div>
+        <div class="materias">
+            <button onclick="selecionarMateria('Matemática')">
+                🔢
+                <strong>Matemática</strong>
+                <small>Equações, funções e mais</small>
+            </button>
+            <button onclick="selecionarMateria('Português')">
+                📖
+                <strong>Português</strong>
+                <small>Gramática e literatura</small>
+            </button>
+            <button onclick="selecionarMateria('História')">
+                🏛️
+                <strong>História</strong>
+                <small>Brasil e mundo</small>
+            </button>
+            <button onclick="selecionarMateria('Biologia')">
+                🧬
+                <strong>Biologia</strong>
+                <small>Vida e ciência</small>
+            </button>
+            <button onclick="selecionarMateria('Química')">
+                ⚗️
+                <strong>Química</strong>
+                <small>Matéria e reações</small>
+            </button>
+            <button onclick="selecionarMateria('Física')">
+                ⚡
+                <strong>Física</strong>
+                <small>Movimento e energia</small>
+            </button>
+        </div>
+    </section>
+    <section id="chat" class="tela">
+        <div class="chat-header">
+            <button class="voltar" onclick="mostrarEstudo()">
+                ← Matérias
+            </button>
+            <div>
+                <h2>Prof IA 🤖</h2>
+                <span id="materiaEscolhida">Matéria</span>
+            </div>
+        </div>
+        <div id="mensagens" class="mensagens">
+            <div class="mensagem professora">
+                <div class="avatar">🤖</div>
+                <div>
+                    <strong>Prof IA</strong>
+                    <p>
+                        Oi! 👋 Estou pronta para te ajudar.
+                        Qual é a sua dúvida?
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="atalhos">
+            <button onclick="atalho('Explique esse conteúdo de forma simples')">
+                📚 Explicar
+            </button>
+            <button onclick="atalho('Me dê um exercício para praticar')">
+                ✏️ Exercício
+            </button>
+            <button onclick="atalho('Me dê uma dica sem entregar a resposta')">
+                💡 Dica
+            </button>
+        </div>
+        <div class="entrada">
+            <input
+                id="pergunta"
+                type="text"
+                placeholder="Digite sua dúvida..."
+                onkeydown="verificarEnter(event)"
+            >
+            <button onclick="enviarPergunta()">
+                ➤
+            </button>
+        </div>
+    </section>
+</main>
+<footer>
+    <p>Prof IA • Projeto escolar de Inteligência Artificial</p>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
