@@ -25,7 +25,7 @@ function enviarPergunta() {
 }
 
 pergunta.addEventListener("keydown", function(event) {
-    if (event.key === "Enter" && !event.shiftKey) {
+    if (event.key === "Enter") {
         event.preventDefault();
         responder();
     }
