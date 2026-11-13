@@ -1,116 +1,123 @@
-// ===============================
-// PROF IA - SCRIPT PRINCIPAL
-// ===============================
+
+const mensagens = document.getElementById("mensagens");
+const pergunta = document.getElementById("pergunta");
+const materiaEscolhida = document.getElementById("materiaEscolhida");
+
+let materiaAtual = "";
+
+// Trocar de tela
+function mostrarTela(tela) {
+    document.querySelectorAll(".tela").forEach(secao => {
+        secao.classList.remove("ativa");
+    });
+
+    document.getElementById(tela).classList.add("ativa");
+}
 
 function mostrarEstudo() {
-    document.getElementById("inicio").classList.remove("ativa");
-    document.getElementById("chat").classList.remove("ativa");
-    document.getElementById("estudo").classList.add("ativa");
-
-    window.scrollTo(0, 0);
+    mostrarTela("estudo");
 }
 
 function voltarInicio() {
-    document.getElementById("estudo").classList.remove("ativa");
-    document.getElementById("chat").classList.remove("ativa");
-    document.getElementById("inicio").classList.add("ativa");
-
-    window.scrollTo(0, 0);
+    mostrarTela("inicio");
 }
 
+// Escolher matéria
 function selecionarMateria(materia) {
-    document.getElementById("estudo").classList.remove("ativa");
-    document.getElementById("inicio").classList.remove("ativa");
-    document.getElementById("chat").classList.add("ativa");
+    materiaAtual = materia;
+    materiaEscolhida.textContent = materia;
 
-    document.getElementById("materiaEscolhida").textContent = materia;
+    mensagens.innerHTML = "";
 
-    const mensagens = document.getElementById("mensagens");
+    adicionarMensagem(
+        "professora",
+        `Olá! 💗 Vamos estudar ${materia}! Qual conteúdo você gostaria de aprender hoje?`
+    );
 
-    mensagens.innerHTML = `
-        <div class="mensagem professora">
-            <div class="avatar">🤖</div>
-            <div>
-                <strong>Prof IA</strong>
-                <p>
-                    Oi! 👋 Você escolheu <strong>${materia}</strong>!
-                    <br><br>
-                    Qual é a sua dúvida? Vou tentar explicar de uma forma simples. 💗
-                </p>
-            </div>
-        </div>
-    `;
-
-    window.scrollTo(0, 0);
+    mostrarTela("chat");
 }
 
-function enviarPergunta() {
-    const campo = document.getElementById("pergunta");
-    const texto = campo.value.trim();
-
-    if (!texto) {
-        return;
-    }
-
-    adicionarMensagem("Você", texto, "aluno");
-
-    const resposta = gerarResposta(texto);
-
-    setTimeout(function() {
-        adicionarMensagem("Prof IA 🤖", resposta, "professora");
-    }, 400);
-
-    campo.value = "";
-}
-
-function adicionarMensagem(nome, texto, tipo) {
-    const mensagens = document.getElementById("mensagens");
-
+// Adicionar mensagens na conversa
+function adicionarMensagem(tipo, texto) {
     const mensagem = document.createElement("div");
-    mensagem.className = "mensagem " + tipo;
+    mensagem.className = `mensagem ${tipo}`;
 
-    mensagem.innerHTML = `
-        <div class="avatar">${tipo === "professora" ? "🤖" : "👩‍🎓"}</div>
-        <div>
-            <strong>${nome}</strong>
-            <p>${texto}</p>
-        </div>
-    `;
+    const avatar = document.createElement("div");
+    avatar.className = "avatar";
+    avatar.textContent = tipo === "professora" ? "🤖" : "👩🏻‍🎓";
+
+    const conteudo = document.createElement("div");
+
+    const nome = document.createElement("strong");
+    nome.textContent = tipo === "professora" ? "Prof IA" : "Você";
+
+    const paragrafo = document.createElement("p");
+    paragrafo.textContent = texto;
+
+    conteudo.appendChild(nome);
+    conteudo.appendChild(paragrafo);
+
+    mensagem.appendChild(avatar);
+    mensagem.appendChild(conteudo);
 
     mensagens.appendChild(mensagem);
 
     mensagens.scrollTop = mensagens.scrollHeight;
 }
 
-function gerarResposta(pergunta) {
-    const texto = pergunta.toLowerCase();
+// Resposta provisória da professora
+function gerarResposta(texto) {
+    const textoNormalizado = texto.toLowerCase();
 
-    if (texto.includes("2 + 2") || texto.includes("2+2")) {
-        return "2 + 2 = <strong>4</strong>! 🧮";
+    if (textoNormalizado.includes("exercício") ||
+        textoNormalizado.includes("exercicio")) {
+        return `Vamos praticar ${materiaAtual}! 📚
+
+Me diga qual conteúdo dessa matéria você está estudando para eu preparar um exercício.`;
     }
 
-    if (texto.includes("oi") || texto.includes("olá") || texto.includes("ola")) {
-        return "Oi! 💗 Estou pronta para estudar com você. Pode me mandar sua dúvida!";
+    if (textoNormalizado.includes("dica")) {
+        return `💡 Minha dica: tente identificar os conceitos principais de ${materiaAtual} e entender como eles se relacionam.
+
+Qual é o assunto específico em que você está com dificuldade?`;
     }
 
-    if (texto.includes("não entendi") || texto.includes("nao entendi")) {
-        return "Sem problema! 😊 Vou tentar explicar de um jeito mais simples. Me diga qual parte você não entendeu.";
+    if (textoNormalizado.includes("resumo")) {
+        return `Claro! 💗 Qual conteúdo de ${materiaAtual} você quer que eu resuma? Posso explicar de maneira simples e organizada.`;
     }
 
-    if (texto.includes("ajuda")) {
-        return "Claro! 💗 Me diga qual é a matéria e qual é a sua dúvida.";
-    }
+    return `Entendi sua dúvida sobre ${materiaAtual}! 💗
 
-    return "Entendi! 📚 Ainda estou aprendendo a responder esse tipo de pergunta. Tente escrever sua dúvida de forma mais específica ou use um dos atalhos acima. 💗";
+Para te ajudar melhor, me conte qual conteúdo específico você está estudando. Assim podemos trabalhar na explicação passo a passo.`;
 }
 
-function atalho(texto) {
-    const campo = document.getElementById("pergunta");
+// Enviar pergunta
+function enviarPergunta() {
+    const texto = pergunta.value.trim();
 
-    campo.value = texto;
+    if (!texto) {
+        pergunta.focus();
+        return;
+    }
+
+    adicionarMensagem("aluna", texto);
+
+    pergunta.value = "";
+
+    const resposta = gerarResposta(texto);
+
+    adicionarMensagem("professora", resposta);
+
+    pergunta.focus();
+}
+
+// Botões de atalho
+function atalho(texto) {
+    pergunta.value = texto;
     enviarPergunta();
 }
 
+// Enviar usando Enter
 function verificarEnter(event) {
     if (event.key === "Enter") {
         event.preventDefault();
